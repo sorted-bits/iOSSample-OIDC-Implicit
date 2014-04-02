@@ -33,6 +33,7 @@ NSString *lastResponse;
                                  @"client_secret",
                                  @"response_type",
                                  @"grant_type",
+                                 @"acr_values",
                                  @"scope",
                                  @"idp",
                                  @"pfidpadapterid",
@@ -248,6 +249,7 @@ NSString *lastResponse;
     [authenticationUrl appendString:[self appendOAuthParameter:kOAuth2ParamNonce]];
     [authenticationUrl appendString:[self appendOAuthParameter:kOAuth2ParamState]];
     [authenticationUrl appendString:[self appendOAuthParameter:kOAuth2ParamIdp]];
+    [authenticationUrl appendString:[self appendOAuthParameter:kOAuth2ParamAcrValues]];
     [authenticationUrl appendString:[self appendOAuthParameter:kOAuth2ParamPfidpadapterid]];
     
     lastRequest = [NSString stringWithFormat:@"Built redirect URL: %@", [NSString stringWithString:authenticationUrl]];

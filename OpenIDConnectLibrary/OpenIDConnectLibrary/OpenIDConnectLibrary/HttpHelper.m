@@ -18,11 +18,12 @@ NSURLConnection *c;
 
 +(NSData *) base64DecodeString:(NSString *)base64EncodedString
 {
-    // *** Looks like there may be a bug in Apples initWithBase64EncodedString method.  I had to pad the value.
-    NSInteger numEqualsNeeded = 4 - ([base64EncodedString length] % 4);
+    NSString *cleanBase64EncodedString = [[[base64EncodedString stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"-" withString:@"+"] stringByReplacingOccurrencesOfString:@"_" withString:@"/"];
+
+    NSInteger numEqualsNeeded = 4 - ([cleanBase64EncodedString length] % 4);
     if (numEqualsNeeded == 4) { numEqualsNeeded = 0; }
     NSString *padding = [@"" stringByPaddingToLength:numEqualsNeeded withString:@"=" startingAtIndex:0];
-    NSString *base64EncodedStringPadded = [NSString stringWithFormat:@"%@%@", [[[base64EncodedString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet] ] stringByReplacingOccurrencesOfString:@"-" withString:@"+"] stringByReplacingOccurrencesOfString:@"_" withString:@"/"], padding];
+    NSString *base64EncodedStringPadded = [NSString stringWithFormat:@"%@%@", cleanBase64EncodedString, padding];
     NSData *decodedData = [[NSData alloc] initWithBase64EncodedString:base64EncodedStringPadded options:NSDataBase64DecodingIgnoreUnknownCharacters];
     
     return decodedData;

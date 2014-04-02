@@ -78,7 +78,8 @@
 
 +(SecKeyRef) getIDTokenSigningKeyFromIssuer:(NSString *)issuer andKID:(NSString *)kid
 {
-    SecKeyRef returnKey = [CertHelper getPublicCertFromKeyChainByIssuer:issuer andKID:kid];
+//    SecKeyRef returnKey = [CertHelper getPublicCertFromKeyChainByIssuer:issuer andKID:kid];
+    SecKeyRef returnKey = nil;
     
     if (returnKey == nil) {
         NSString *wellKnownUrl = [NSString stringWithFormat:@"%@/.well-known/openid-configuration", issuer];

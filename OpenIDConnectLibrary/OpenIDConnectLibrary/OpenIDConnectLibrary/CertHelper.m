@@ -146,10 +146,17 @@
 +(NSUInteger) derEncodeDataLength:(NSUInteger)dataLength buffer:(Byte[])returnBuffer
 {
     NSUInteger size = [self bytesInNSUInteger:dataLength];
+    NSUInteger bigELength;
+    BytePtr src;
     
-    NSUInteger bigELength = (NSUInteger)NSSwapHostLongLongToBig(dataLength);
+#if __LP64__
+    bigELength = (NSUInteger)NSSwapHostLongToBig(dataLength);
+    src = (BytePtr)&bigELength + (8-size);
+#else
+    bigELength = (NSUInteger)NSSwapHostIntToBig(dataLength);
+    src = (BytePtr)&bigELength + (4-size);
+#endif
     
-    BytePtr src = (BytePtr)&bigELength + (8-size);
     BytePtr dst = &returnBuffer[0];
     if (*src & 0x80) {
         *dst++ = 0;

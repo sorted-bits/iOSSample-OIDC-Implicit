@@ -20,6 +20,7 @@ typedef enum OAuth2Parameters {
     kOAuth2ParamClientSecret,
     kOAuth2ParamResponseType,
     kOAuth2ParamGrantType,
+    kOAuth2ParamAcrValues,
     kOAuth2ParamScope,
     kOAuth2ParamIdp,
     kOAuth2ParamPfidpadapterid,
